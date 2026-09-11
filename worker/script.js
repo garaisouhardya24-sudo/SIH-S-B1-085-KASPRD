@@ -1,13 +1,4 @@
-/*
-  Aapurtikar
-  ------------------------------------------------
-  Beginner-friendly version:
-  - Only HTML + CSS + JavaScript
-  - No React
-  - No Tailwind
-  - No backend
-  - Data is stored in localStorage
-*/
+
 
 // ---------- DATA ----------
 
