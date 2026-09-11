@@ -314,3 +314,283 @@
   <script src="script.js"></script>
 </body>
 </html>
+
+        <div class="info-box">
+          <span>✓</span>
+          <p>This prototype uses a dummy OTP. No SMS is sent.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- OTP -->
+    <section id="otp" class="screen">
+      <div class="content">
+        <button class="back" onclick="showScreen('login')">‹</button>
+        <h2>Enter OTP</h2>
+        <p class="subtitle">We sent a 4-digit code to your mobile number</p>
+
+        <label>OTP</label>
+        <div class="input-wrap">
+          <span>🔒</span>
+          <input id="otpInput" type="tel" inputmode="numeric" maxlength="6"
+                 placeholder="1234">
+        </div>
+        <p id="otpError" class="error"></p>
+
+        <button class="primary" onclick="verifyOTP()">Verify OTP</button>
+        <button class="link-btn" onclick="resendOTP()">Resend OTP</button>
+
+        <div class="info-box">
+          <span>✓</span>
+          <p>For this prototype, any 4–6 digit OTP is accepted.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- AADHAAR -->
+    <section id="aadhaar" class="screen">
+      <div class="content">
+        <button class="back" onclick="showScreen('otp')">‹</button>
+        <h2>Link Your Aadhaar</h2>
+        <p class="subtitle">Enter your 12-digit Aadhaar number</p>
+
+        <label>Aadhaar Number</label>
+        <div class="input-wrap">
+          <span>🪪</span>
+          <input id="aadhaarInput" type="tel" inputmode="numeric" maxlength="12"
+                 placeholder="e.g., 123456789012">
+        </div>
+        <p id="aadhaarError" class="error"></p>
+
+        <div class="info-box">
+          <span>🛡</span>
+          <p>Prototype only: Aadhaar is saved locally and is not verified.</p>
+        </div>
+
+        <button class="primary" onclick="verifyAadhaar()">Continue</button>
+      </div>
+    </section>
+
+    <!-- LOCATION -->
+    <section id="location" class="screen">
+      <div class="content">
+        <button class="back" onclick="goBackFromLocation()">‹</button>
+        <h2>Select Your Location</h2>
+        <p class="subtitle">Choose your state and procurement centre</p>
+
+        <label>State</label>
+        <select id="state">
+          <option value="">Select state</option>
+          <option>Maharashtra</option>
+          <option>Uttar Pradesh</option>
+          <option>Punjab</option>
+          <option>Karnataka</option>
+          <option>Haryana</option>
+          <option>Madhya Pradesh</option>
+          <option>Rajasthan</option>
+          <option>Gujarat</option>
+          <option>Bihar</option>
+          <option>Other</option>
+        </select>
+
+        <label>Procurement Centre Number</label>
+        <div class="input-wrap">
+          <span>🏢</span>
+          <input id="centre" type="text" inputmode="numeric"
+                 placeholder="e.g., 101">
+        </div>
+        <p id="locationError" class="error"></p>
+
+        <button id="locationButton" class="primary" onclick="saveLocationAndContinue()">
+          Continue
+        </button>
+
+        <div class="info-box">
+          <span>📍</span>
+          <p>Choose the centre where you will report your crops.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CROPS -->
+    <section id="crops" class="screen">
+      <div class="content">
+        <button class="back" onclick="showScreen('location')">‹</button>
+        <h2>What did you grow?</h2>
+        <p class="subtitle">Add the crops you want to bring to the procurement centre.</p>
+
+        <label>Crop Name</label>
+        <select id="cropSelect" onchange="toggleCustomCrop()">
+          <option value="">Select a crop</option>
+          <option>Wheat</option>
+          <option>Rice</option>
+          <option>Maize</option>
+          <option>Cotton</option>
+          <option>Sugarcane</option>
+          <option>Mustard</option>
+          <option>Soybean</option>
+          <option>Groundnut</option>
+          <option>Bajra</option>
+          <option>Jowar</option>
+          <option>Barley</option>
+          <option>Gram</option>
+          <option>Lentils</option>
+          <option>Pulses</option>
+          <option value="other">Other / Enter Crop Name</option>
+        </select>
+
+        <div id="customCropBox" class="hidden">
+          <label>Enter Crop Name</label>
+          <div class="input-wrap">
+            <span>🌱</span>
+            <input id="customCrop" type="text" placeholder="e.g., Potato">
+          </div>
+        </div>
+
+        <label>Quantity</label>
+        <div class="input-wrap">
+          <span>⚖️</span>
+          <input id="quantity" type="number" min="0.01" step="0.01"
+                 placeholder="e.g., 25">
+        </div>
+
+        <label>Unit</label>
+        <select id="unit">
+          <option>Quintal</option>
+          <option>Kg</option>
+          <option>Ton</option>
+        </select>
+
+        <p id="cropError" class="error"></p>
+
+        <button class="outline" onclick="addCrop()">＋ Add Crop</button>
+
+        <div class="section-title">
+          Your Crops <span id="cropCount"></span>
+        </div>
+
+        <div id="cropList" class="crop-list">
+          <div class="empty">🌾<br><b>No crops added yet</b><br>
+            <small>Add the crops you have grown.</small>
+          </div>
+        </div>
+
+        <button class="primary" onclick="generateToken()">Generate My Token</button>
+      </div>
+    </section>
+
+    <!-- HOME -->
+    <section id="home" class="screen">
+      <header class="home-header">
+        <div class="hello"><span>👤</span> Hello, Farmer!</div>
+        <span>🌿</span>
+      </header>
+
+      <div class="home-content">
+        <p class="token-label">Your Token Number</p>
+        <div id="token" class="token">FT-0000-0000</div>
+        <p class="token-help">Show this token at the procurement centre for reporting.</p>
+
+        <button class="request-link" onclick="openRequests()">
+          <span>📨 Procurement Requests <span id="requestDot" class="notification-dot hidden"></span><br><small id="requestSummary">No new procurement requests</small></span>
+          <span>›</span>
+        </button>
+
+        <button class="request-link" onclick="openShipmentHistory()">
+          <span>🚚 Crop Submission History<br><small>View your submitted crops and dates</small></span>
+          <span>›</span>
+        </button>
+
+        <button class="request-link" onclick="openPaymentHistory()">
+          <span>💰 Payment History<br><small>View payment status for your shipments</small></span>
+          <span>›</span>
+        </button>
+
+        <div class="section-title">Your Crops</div>
+        <div id="homeCropList"></div>
+        <button class="outline" onclick="openAddCrop()">＋ Add Crop</button>
+
+        <div class="section-title">Your Details</div>
+        <div class="details-card">
+          <div class="detail"><span>📞 Mobile Number</span><b id="homeMobile"></b></div>
+          <div class="detail"><span>🪪 Aadhaar Number</span><b id="homeAadhaar"></b></div>
+          <div class="detail"><span>📍 State</span><b id="homeState"></b></div>
+          <div class="detail"><span>🏢 Centre Number</span><b id="homeCentre"></b></div>
+        </div>
+
+        <button class="outline" onclick="changeCentre()">Change Centre</button>
+        <button class="logout" onclick="logout()">Logout</button>
+      </div>
+    </section>
+
+    <!-- PROCUREMENT REQUESTS -->
+    <section id="requests" class="screen request-screen">
+      <div class="content">
+        <button class="back" onclick="showScreen('home')">‹</button>
+        <h2>Procurement Requests</h2>
+        <p class="subtitle">Government procurement requests sent to you will appear here.</p>
+
+        <div class="info-box">
+          <span>📨</span>
+          <p>Check the crop, quantity, date and centre before accepting a request.</p>
+        </div>
+
+        <div id="requestList" style="margin-top:22px"></div>
+      </div>
+    </section>
+
+
+    <!-- CROP SUBMISSION HISTORY -->
+    <section id="shipmentHistory" class="screen request-screen">
+      <div class="content">
+        <button class="back" onclick="showScreen('home')">‹</button>
+        <h2>Crop Submission History</h2>
+        <p class="subtitle">See the crops you submitted, their quantity and submission date.</p>
+
+        <div id="shipmentHistoryList" style="margin-top:22px"></div>
+        <div id="gradingNote" class="info-box"><span>⭐</span><p>Crop grading given by the procurement worker will appear with your crop history.</p></div>
+      </div>
+    </section>
+
+    <!-- PAYMENT HISTORY -->
+    <section id="paymentHistory" class="screen request-screen">
+      <div class="content">
+        <button class="back" onclick="showScreen('home')">‹</button>
+        <h2>Payment History</h2>
+        <p class="subtitle">See the payment status for your submitted crops.</p>
+
+        <div id="paymentHistoryList" style="margin-top:22px"></div>
+      </div>
+    </section>
+
+    <!-- SIMPLE ADD-CROP MODAL -->
+    <div id="addCropModal" class="modal hidden">
+      <div class="modal-card">
+        <button class="close" onclick="closeAddCrop()">×</button>
+        <h3>Add Another Crop</h3>
+        <label>Crop Name</label>
+        <select id="modalCropSelect" onchange="toggleModalCustom()">
+          <option value="">Select a crop</option>
+          <option>Wheat</option><option>Rice</option><option>Maize</option>
+          <option>Cotton</option><option>Sugarcane</option><option>Mustard</option>
+          <option>Soybean</option><option>Groundnut</option><option>Bajra</option>
+          <option>Jowar</option><option>Barley</option><option>Gram</option>
+          <option>Lentils</option><option>Pulses</option>
+          <option value="other">Other / Enter Crop Name</option>
+        </select>
+        <input id="modalCustomCrop" class="hidden" placeholder="Enter crop name">
+        <label>Quantity</label>
+        <input id="modalQuantity" type="number" min="0.01" step="0.01" placeholder="e.g., 25">
+        <label>Unit</label>
+        <select id="modalUnit">
+          <option>Quintal</option><option>Kg</option><option>Ton</option>
+        </select>
+        <p id="modalError" class="error"></p>
+        <button class="primary" onclick="addCropFromHome()">Add Crop</button>
+      </div>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
